@@ -1,0 +1,13 @@
+#!/bin/bash
+# Ping host if un responsive then send wol packet
+HOST=XXX.XXX.XXX.XXX
+MAC=xx:xx:xx:xx:xx:xx
+NAME=Name
+ping -c 4 -i 1 $HOST 0>/dev/null
+OFFLINE=$?
+if [ $OFFLINE -eq 1 ]
+then
+  echo "Sending Wake On Lan packet to $NAME"
+  sudo etherwake -i eth0 $MAC
+else
+  echo "Device Online"
